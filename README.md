@@ -15,7 +15,7 @@ This library requires PHP 7.
 
 ## Install
 
-Install `serializer` using Composer.
+Install using [Composer](https://getcomposer.org/):
 
 ```
 $ composer require maximegosselin/serializer
@@ -43,7 +43,7 @@ Array
 
 ### Object serialization
 
-A userland class must implement `SerializableInterface` and `DeserializableInterface`.
+A user class must implement `SerializableInterface` and `DeserializableInterface`.
 
 Let's say we have a class `Person` defined like this:
 
@@ -71,6 +71,8 @@ class Person implements SerializableInterface, DeserializableInterface
     }
 }
 ```
+
+then the following code:
 
 ```php
 $person = new Person('John');
