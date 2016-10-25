@@ -1,17 +1,18 @@
 # Serializer
 
 [![Latest Version](https://img.shields.io/github/release/maximegosselin/serializer.svg)](https://github.com/maximegosselin/serializer/releases)
-[![Packagist](https://img.shields.io/packagist/v/maximegosselin/serializer.svg)](https://packagist.org/packages/maximegosselin/serializer)
-[![Software License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Build Status](https://img.shields.io/travis/maximegosselin/serializer.svg)](https://travis-ci.org/maximegosselin/serializer)
-[![Quality Score](https://img.shields.io/scrutinizer/g/maximegosselin/serializer.svg)](https://scrutinizer-ci.com/g/maximegosselin/serializer)
-[![Total Downloads](https://img.shields.io/packagist/dt/maximegosselin/serializer.svg)](https://packagist.org/packages/maximegoselin/serializer)
+[![Software License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-Convert scalar values and objects to arrays.
+*Serializer* converts data to a portable array structure than can be easily exported outside your application.
+
+The library is framework-agnostic and does not have any dependencies.
+
 
 ## System Requirements
 
-This library requires PHP 7.
+PHP 7.0 or later.
+
 
 ## Install
 
@@ -21,82 +22,19 @@ Install using [Composer](https://getcomposer.org/):
 $ composer require maximegosselin/serializer
 ```
 
-## Usage
+*Serializer* is registered under the `MaximeGosselin\Serializer` namespace.
 
-### Scalar serialization
 
-*Serializer* supports scalars of type `boolean`, `integer`, `float` and `string`.
+## Documentation
 
-```php
-$output = Serializer::serialize(123);
-print_r($output);
+Read documentation [here](docs/USAGE.md).
+
+
+## Tests
+
+Run the following command from the project folder.
 ```
-
-will output:
-```
-Array
-(
-    [type] => integer
-    [payload] => 123
-)
-```
-
-### Object serialization
-
-A user class must implement `SerializableInterface` and `DeserializableInterface`.
-
-Let's say we have a class `Person` defined like this:
-
-```php
-use MaximeGosselin\Serializer\DeserializableInterface;
-use MaximeGosselin\Serializer\SerializableInterface;
- 
-class Person implements SerializableInterface, DeserializableInterface
-{
-    private $name;
-    
-    public function __construct(string $name) {
-        $this->name = $name;
-    }
-    
-    public function serialize():array {
-        return [
-            'name' => $this->name
-        ];
-    }
-    
-    public static function deserialize(array $data):Person {
-        $name = $data['name'];
-        return new static($name);            
-    }
-}
-```
-
-then the following code:
-
-```php
-$person = new Person('John');
-
-$output = Serializer::serialize($person);
-print_r($output);
-```
-
-would output:
-
-```
-Array
-(
-    [type] => object
-    [class] => Person
-    [payload] => Array
-        (
-            [name] => Array
-                (
-                    [type] => string
-                    [payload] => John
-                )
-        )
-)
+$ vendor/bin/phpunit
 ```
 
 
