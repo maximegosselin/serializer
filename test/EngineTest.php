@@ -201,6 +201,14 @@ class EngineTest extends PHPUnit_Framework_TestCase
         $this->assertArraySubset(self::SERIALIZED_OBJECT, $this->engine->serialize($this->person));
     }
 
+    /**
+     * @expectedException \MaximeGosselin\Serializer\DeserializationException
+     */
+    public function testDeserializeInvalidDataThrowsDeserializationException()
+    {
+        $this->engine->deserialize([123]);
+    }
+
     public function testDeserializeObjectImplementingSerializableInterface()
     {
         $this->assertEquals($this->person, $this->engine->deserialize(self::SERIALIZED_OBJECT));
