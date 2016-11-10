@@ -21,7 +21,7 @@ use MaximeGosselin\Serializer\Strategy\SerializeStrategyInterface;
 use MaximeGosselin\Serializer\Strategy\StringDeserializeStrategy;
 use MaximeGosselin\Serializer\Strategy\StringSerializeStrategy;
 
-class Engine implements SerializerInterface, DeserializerInterface
+class Engine implements SerializationInterface
 {
     /**
      * @var array
@@ -68,11 +68,7 @@ class Engine implements SerializerInterface, DeserializerInterface
         $message = <<<EOT
 Invalid variable of type %s. To be serialized, variable must be a scalar, an array, NULL, or object implementing %s.
 EOT;
-        throw new SerializationException(sprintf(
-            $message,
-            gettype($var),
-            SerializableInterface::class
-        ));
+        throw new SerializationException(sprintf($message, gettype($var), SerializableInterface::class));
     }
 
     public function deserialize(array $data)
